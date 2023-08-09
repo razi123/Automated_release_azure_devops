@@ -1,8 +1,7 @@
 trigger: 
   branches:
     include:
-      - dev
-      - dummy_release_scai_app
+      - master
 
 parameters:
   - name: "envs"
