@@ -1,19 +1,31 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+trigger: 
+  branches:
+    include:
+      - dev
+      - dummy_release_scai_app
 
-trigger:
-- master
+parameters:
+  - name: "envs"
+    type: object
+    default: ["DEV"]
+  - name: "factories"
+    type: object
+    default: ["MO46", "MO56", "MO93"]
+  - name: run_blackduck
+    type: boolean
+    default: False
 
-pool:
-  vmImage: ubuntu-latest
+stages:
+  - stage: release
+    jobs:
+      - job: FetchBuildId
+        displayName: Fetch Build Id from Powershell script
+        steps:
+          - task: AzurePowerShell@2
+            displayName: 'Run get build_id and work_items associated with the build_id'
+            inputs:
+              targetType: 'inline'
+              scriptPath: |
+                Write-Host "Running the powershell script .." 
+                ./Automated_release_azure_devops/get_workitems_pbis_for_releases.ps1 
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'

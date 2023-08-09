@@ -5,10 +5,10 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Replace 'YourOrganization', 'YourProject', 'YourBuildDefinitionId', 'YourBuildNumber', and 'YourPAT' with your actual values.
-$organization = "org_name"
-$project = "proj_name"
-$buildPipelineName = "release_pipeline_name"
-$pat = "paste your PAT t"
+$organization = "rkhDaifal"
+$project = "MBAGFAL"
+$buildPipelineName = "razi123.Automated_release_azure_devops"
+$pat = "25ff2ntc6i77kooduaixo32nvy6x6etcazvfseiqalqy5kaij76a"
 
 # Base64 encode the PAT to use in the Authorization header.
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$pat"))
