@@ -2,29 +2,24 @@ trigger:
   branches:
     include:
       - master
-
+      - feature/utc_cet_testing
 parameters:
   - name: "envs"
     type: object
     default: ["DEV"]
-  - name: "factories"
-    type: object
-    default: ["MO46", "MO56", "MO93"]
-  - name: run_blackduck
-    type: boolean
-    default: False
 
-stages:
-  - stage: release
-    jobs:
-      - job: FetchBuildId
-        displayName: Fetch Build Id from Powershell script
-        steps:
-          - task: AzurePowerShell@2
-            displayName: 'Run get build_id and work_items associated with the build_id'
-            inputs:
-              targetType: 'inline'
-              scriptPath: |
-                Write-Host "Running the powershell script .." 
-                ./Automated_release_azure_devops/get_workitems_pbis_for_releases.ps1 
+pool:
+  vmImage: 'ubuntu-latest'
 
+steps:
+  - script: |
+      python -m venv venv
+      source venv/bin/activate
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
+    workingDirectory: Automated_release_azure_devops/
+
+  - script: |
+      pytest
+      displayName: 'Run pytest'
+      workingDirectory: Automated_release_azure_devops/test_python_task1.py
