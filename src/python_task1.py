@@ -29,8 +29,6 @@ def create_date_time_definition(
     current_date = f.to_date(f.from_unixtime(current_timestamp))
     current_time = f.date_format(f.from_unixtime(current_timestamp), "HH:mm:ss")
 
-    print("3")
-
     timestamps = (
         picks_information.select(
             f.unix_timestamp(f.min(f.col("AETIMESTAMP"))).alias("from_timestamp"))
@@ -43,4 +41,4 @@ def create_date_time_definition(
     date_time = date_time.withColumn("date", f.to_date("time_filter"))
     date_time = date_time.withColumn("time", f.date_format("time_filter", "HH:mm:ss"))
 
-    return date_time.drop_column(["date", "time"])
+    return date_time.drop("date", "time")
