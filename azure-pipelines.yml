@@ -17,7 +17,8 @@ steps:
       source venv/bin/activate
       pip install -r requirements.txt
     displayName: 'Install dependencies'
-    workingDirectory: Automated_release_azure_devops/
+    echo($(Build.SourcesDirectory)/src/)
+    workingDirectory: $(Build.SourcesDirectory)/src/
 
   - script: |
       pytest
