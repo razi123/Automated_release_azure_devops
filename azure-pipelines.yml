@@ -20,6 +20,6 @@ steps:
     workingDirectory: $(Build.SourcesDirectory)
 
   - script: |
-      pytest
+      pytest test_python_task1.py
       displayName: 'Run pytest'
-      workingDirectory: Automated_release_azure_devops/test_python_task1.py
+      workingDirectory: $(Build.SourcesDirectory)
