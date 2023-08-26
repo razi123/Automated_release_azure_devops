@@ -1,4 +1,4 @@
-from pyspark.sql import SparkSession
+from utils.spark_init import spark
 from pyspark.sql.types import List
 import pyspark.sql.functions as f
 
